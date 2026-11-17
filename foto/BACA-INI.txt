@@ -1,0 +1,13 @@
+Taruh file foto di folder ini dengan nama persis seperti berikut:
+
+- fotosiswa1.jpg, fotosiswa2.jpg, ... fotosiswa33.jpg
+  -> foto tiap siswa, sesuai nomor urut di daftar.
+
+- walikelas.jpg
+  -> foto wali kelas (Suci Fatmawati, S.Pd), tampil di kartu khusus.
+
+- kelasbersama1.jpg, kelasbersama2.jpg, dst.
+  -> foto bersama kelas (landscape), akan bergantian otomatis di bagian atas halaman.
+
+Kalau file belum ada, tampilan otomatis pakai inisial nama / teks placeholder,
+jadi halaman tetap rapi walau foto belum lengkap.

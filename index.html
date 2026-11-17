@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X TJKT 2 </title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body class="locked">
+
+<div id="splash" onclick="hideSplash()">
+  <div class="label">SMK · Program Teknik Jaringan Komputer dan Telekomunikasi</div>
+  <h2>Selamat Datang, X TJKT 2</h2>
+</div>
+
+<div class="detail-view" id="detailView">
+  <button class="detail-back" onclick="closeDetail()">← Kembali</button>
+  <div class="detail-content">
+    <div class="detail-photo" id="detailPhoto"></div>
+    <div class="detail-name" id="detailName"></div>
+    <div class="detail-sub" id="detailSub"></div>
+    <div class="detail-rows">
+      <div class="detail-row"><span class="dl">Nomor urut</span><span class="dv" id="detailNo"></span></div>
+      <div class="detail-row"><span class="dl">NISN</span><span class="dv" id="detailNisn"></span></div>
+      <div class="detail-row"><span class="dl">Jenis kelamin</span><span class="dv" id="detailGender"></span></div>
+      <div class="detail-row"><span class="dl">Jabatan</span><span class="dv" id="detailJabatan"></span></div>
+    </div>
+  </div>
+</div>
+
+<header>
+  <div class="brand">X TJKT 2
+    <small>Teknik Jaringan Komputer dan Telekomunikasi · Semester Ganjil 2026/2027</small>
+  </div>
+  <div class="wali">
+    Wali Kelas<br><strong>Suci Fatmawati, S.Pd</strong>
+  </div>
+</header>
+
+<div class="group-photo">
+  <div class="group-photo-frame" id="groupPhotoFrame">
+    <img class="gp-slide" id="groupPhotoImgA" src="foto/kelasbersama1.jpg" alt="Foto bersama X TJKT 2" onerror="this.style.display='none'; document.getElementById('groupPhotoFallback').style.display='flex';">
+    <img class="gp-slide gp-incoming" id="groupPhotoImgB" alt="Foto bersama X TJKT 2">
+    <div class="group-photo-fallback" id="groupPhotoFallback" style="display:none;">Foto bersama kelas belum ditambahkan</div>
+    <div class="group-photo-caption">Foto bersama X TJKT 2</div>
+  </div>
+</div>
+
+<div class="wali-section">
+  <div class="wali-card">
+    <div class="wali-card-photo" data-fallback="SF">
+      <img src="foto/walikelas.jpg" alt="Foto Suci Fatmawati, S.Pd" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback;">
+    </div>
+    <div class="wali-card-divider"></div>
+    <div class="wali-card-info">
+      <span class="wali-card-tag">Wali Kelas</span>
+      <div class="wali-card-name">Suci Fatmawati, S.Pd</div>
+      <div class="wali-card-sub">X TJKT 2 · Teknik Jaringan Komputer dan Telekomunikasi</div>
+      <div class="wali-card-fields">
+        <div class="wali-card-field"><span class="fl">Kelas</span><span class="fv">X TJKT 2</span></div>
+        <div class="wali-card-field"><span class="fl">Jabatan</span><span class="fv">Wali Kelas</span></div>
+        <div class="wali-card-field"><span class="fl">Tahun ajaran</span><span class="fv">2026/2027 · Ganjil</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="stats" id="stats">
+  <div class="stat"><div class="n" id="statTotal">0</div><div class="l">Jumlah siswa</div></div>
+  <div class="stat"><div class="n" id="statL">0</div><div class="l">Laki-laki</div></div>
+  <div class="stat"><div class="n" id="statP">0</div><div class="l">Perempuan</div></div>
+  <div class="stat"><div class="n">1</div><div class="l">Rombongan belajar</div></div>
+</div>
+
+<div class="roster-head">
+  <h1>Daftar siswa</h1>
+  <div class="controls">
+    <input class="search" id="searchBox" type="text" placeholder="Cari nama atau NISN...">
+    <div class="filter-group">
+      <button class="filter-tab active" data-gender="ALL">Semua</button>
+      <button class="filter-tab" data-gender="L">Laki-laki</button>
+      <button class="filter-tab" data-gender="P">Perempuan</button>
+    </div>
+  </div>
+</div>
+
+<div class="roster">
+  <div class="roster-grid" id="rosterBody"></div>
+</div>
+
+<footer>
+  Haloo Selamat datang <code>Di Web X TJKT 2, </code> Enjoyy yaa 
+</footer>
+
+<script src="js/script.js"></script>
+
+</body>
+</html>
