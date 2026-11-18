@@ -481,6 +481,266 @@
     animation: fadeIn 0.4s ease forwards;
   }
 
+  /* ---------- NAVIGASI ---------- */
+  .site-nav{
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;
+    justify-content: center;
+    gap: 1.8rem;
+    padding: 0.75rem 6vw;
+    background: var(--paper-raised);
+    border-bottom: 1px solid var(--line);
+    transition: box-shadow 0.2s ease;
+  }
+  .site-nav.scrolled{ box-shadow: 0 6px 16px -12px rgba(30,42,34,0.5); }
+  .site-nav a{
+    color: var(--ink-soft);
+    text-decoration: none;
+    font-size: 0.82rem;
+    letter-spacing: 0.04em;
+    padding: 0.2rem 0;
+    border-bottom: 1px solid transparent;
+    white-space: nowrap;
+    flex-shrink: 0;
+    transition: color 0.2s ease, border-color 0.2s ease;
+  }
+  .site-nav a:hover{ color: var(--ink); border-color: var(--gold); }
+  .site-nav a.active{ color: var(--ink); border-color: var(--gold); font-weight: 600; }
+  #atas, #pengurus, #jadwal, #siswa, #galeri{ scroll-margin-top: 60px; }
+
+  /* ---------- BAGIAN UMUM ---------- */
+  .section{
+    max-width: 1180px;
+    margin: 3rem auto;
+    padding: 0 6vw;
+  }
+  .section-head{ margin-bottom: 1.3rem; }
+  .section-head h2{
+    font-family: 'Fraunces', serif;
+    font-weight: 500;
+    font-size: clamp(1.4rem, 3vw, 1.8rem);
+  }
+  .section-head p{
+    color: var(--ink-soft);
+    font-size: 0.85rem;
+    margin-top: 0.3rem;
+  }
+
+  /* ---------- JADWAL PELAJARAN ---------- */
+  .jadwal-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+  }
+  .jadwal-card{
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+  .jadwal-hari{
+    font-family: 'Fraunces', serif;
+    font-size: 1.05rem;
+    padding: 0.8rem 1rem;
+    border-bottom: 1px solid var(--line);
+    border-left: 3px solid var(--gold);
+    background: var(--paper);
+  }
+  .jadwal-list{ padding: 0.4rem 0; }
+  .jadwal-item{
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.85rem;
+    border-bottom: 1px solid var(--line);
+  }
+  .jadwal-item:last-child{ border-bottom: none; }
+  .jadwal-no{
+    font-family: 'Fraunces', serif;
+    color: var(--gold);
+    font-size: 0.78rem;
+    flex-shrink: 0;
+  }
+  .jadwal-mapel{ font-weight: 500; }
+
+  /* ---------- PENGURUS KELAS ---------- */
+  .pengurus-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 1rem;
+  }
+  .pengurus-card{
+    border: 1px solid var(--line);
+    background: var(--paper-raised);
+    border-radius: 12px;
+    padding: 1rem 0.8rem;
+    text-align: center;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(14px);
+    animation: cardIn 0.5s cubic-bezier(.22,.61,.36,1) forwards;
+    transition: transform 0.25s cubic-bezier(.22,.61,.36,1), box-shadow 0.25s ease, border-color 0.25s ease;
+  }
+  .pengurus-card:hover{
+    transform: translateY(-3px);
+    border-color: var(--gold);
+    box-shadow: 0 10px 24px -14px rgba(30,42,34,0.35);
+  }
+  .pengurus-photo{
+    width: 72px;
+    height: 72px;
+    margin: 0 auto 0.7rem;
+    border-radius: 50%;
+    overflow: hidden;
+    background: var(--teal);
+    color: var(--paper);
+    font-family: 'Fraunces', serif;
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--gold);
+  }
+  .pengurus-photo img{ width: 100%; height: 100%; object-fit: cover; display: block; }
+  .pengurus-name{ font-weight: 500; font-size: 0.88rem; line-height: 1.3; }
+  .pengurus-role{
+    display: inline-block;
+    margin-top: 0.45rem;
+    font-size: 0.72rem;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    border-radius: 3px;
+    padding: 0.15rem 0.5rem;
+  }
+
+  /* ---------- GALERI ---------- */
+  .galeri-grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+  .galeri-item{
+    border: 1px solid var(--line);
+    background: var(--teal);
+    color: var(--paper);
+    padding: 0;
+    font-family: inherit;
+    cursor: pointer;
+    overflow: hidden;
+    text-align: left;
+    transition: transform 0.25s cubic-bezier(.22,.61,.36,1), box-shadow 0.25s ease;
+  }
+  .galeri-item:hover{ transform: translateY(-3px); box-shadow: 0 10px 24px -14px rgba(30,42,34,0.35); }
+  .galeri-item img{
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    object-fit: cover;
+    display: block;
+  }
+  .galeri-item span{
+    display: block;
+    padding: 0.65rem 0.8rem;
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 0.78rem;
+  }
+
+  .lightbox{
+    position: fixed;
+    inset: 0;
+    z-index: 700;
+    background: rgba(15, 18, 15, 0.94);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 4rem 5vw 5rem;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+  .lightbox.show{ display: flex; opacity: 1; }
+  .lb-img{
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    display: block;
+    border: 1px solid rgba(245,240,230,0.25);
+  }
+  .lb-close, .lb-nav{
+    position: absolute;
+    border: 1px solid rgba(245,240,230,0.35);
+    background: rgba(245,240,230,0.08);
+    color: var(--paper);
+    font-family: inherit;
+    cursor: pointer;
+    transition: background 0.2s ease;
+  }
+  .lb-close:hover, .lb-nav:hover{ background: rgba(245,240,230,0.2); }
+  .lb-close{
+    top: 1.2rem;
+    right: 1.5rem;
+    width: 40px;
+    height: 40px;
+    font-size: 1.6rem;
+    line-height: 1;
+  }
+  .lb-nav{
+    top: 50%;
+    transform: translateY(-50%);
+    width: 44px;
+    height: 60px;
+    font-size: 2.2rem;
+    line-height: 1;
+  }
+  .lb-prev{ left: 1.2rem; }
+  .lb-next{ right: 1.2rem; }
+  .lb-caption{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 1.4rem;
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    color: var(--paper);
+    font-size: 0.85rem;
+  }
+  .lb-caption span:last-child{ color: var(--gold); }
+
+  .back-to-top{
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    z-index: 200;
+    width: 42px;
+    height: 42px;
+    border: 1px solid var(--gold);
+    background: var(--paper-raised);
+    color: var(--ink);
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px);
+    transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s ease, background 0.2s ease;
+  }
+  .back-to-top.show{ opacity: 1; visibility: visible; transform: translateY(0); }
+  .back-to-top:hover{ background: var(--gold); color: var(--paper); }
+
+  .csv-btn{
+    border: 1px solid var(--line);
+    background: transparent;
+    padding: 0.6rem 0.95rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--ink-soft);
+    cursor: pointer;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .csv-btn:hover{ background: var(--teal); border-color: var(--teal); color: var(--paper); }
+
   footer{
     text-align:center;
     padding: 2rem;
@@ -541,6 +801,32 @@
     .wali-card-fields{ padding-top: 0.5rem; }
     .wali-card-field{ font-size: 0.72rem; padding: 0.18rem 0; gap: 0.4rem; }
     .wali-card-field .fl{ width: 72px; }
+
+    .site-nav{
+      gap: 1.1rem;
+      padding: 0.65rem 5vw;
+      justify-content: flex-start;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .site-nav::-webkit-scrollbar{ display: none; }
+    .site-nav a{ font-size: 0.75rem; }
+    .section{ padding: 0 5vw; margin: 2rem auto; }
+    .jadwal-grid{ grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.7rem; }
+    .jadwal-hari{ font-size: 0.95rem; padding: 0.65rem 0.7rem; }
+    .jadwal-item{ padding: 0.45rem 0.7rem; font-size: 0.78rem; gap: 0.45rem; }
+    .pengurus-grid{ grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    .pengurus-card{ padding: 0.85rem 0.5rem; }
+    .pengurus-photo{ width: 60px; height: 60px; }
+    .pengurus-name{ font-size: 0.8rem; }
+    .galeri-grid{ grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+    .galeri-item span{ font-size: 0.68rem; padding: 0.5rem 0.6rem; }
+    .lb-nav{ width: 36px; height: 50px; font-size: 1.8rem; }
+    .lb-prev{ left: 0.4rem; }
+    .lb-next{ right: 0.4rem; }
+    .lb-caption{ font-size: 0.72rem; flex-direction: column; align-items: center; gap: 0.1rem; }
+    .csv-btn{ width: 100%; }
   }
 
   @media (max-width: 400px){

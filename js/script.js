@@ -45,6 +45,14 @@
     {no:33, nisn:"0103189936", name:"Yasir Putra Pratama", gender:"L", jabatan:"Ketua Kelas"}
   ];
 
+  var jadwal = [
+    {hari: 'Senin', mapel: ['Informatika', 'Bahasa Indonesia', 'Seni Budaya', 'Inggris']},
+    {hari: 'Selasa', mapel: ['DDPK', 'MTK', 'Inggris', 'PPKn']},
+    {hari: 'Rabu', mapel: ['IPAS', 'BK', 'MTK', 'PJOK', 'BMR', 'DDPK']},
+    {hari: 'Kamis', mapel: ['Koding', 'IPAS', 'Agama', 'Sejarah']},
+    {hari: 'Jumat', mapel: ['DDPK']}
+  ];
+
   var activeFilter = "ALL";
   var searchTerm = "";
 
@@ -143,6 +151,49 @@
     document.getElementById('statP').textContent = p;
   }
 
+  function renderJadwal(){
+    document.getElementById('jadwalBody').innerHTML = jadwal.map(function(hari){
+      return '' +
+        '<div class="jadwal-card">' +
+          '<div class="jadwal-hari">' + hari.hari + '</div>' +
+          '<div class="jadwal-list">' +
+            hari.mapel.map(function(mapel, i){
+              return '<div class="jadwal-item"><span class="jadwal-no">' + (i + 1) + '</span><span class="jadwal-mapel">' + mapel + '</span></div>';
+            }).join('') +
+          '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  function renderPengurus(){
+    var urutan = ['Ketua Kelas', 'Wakil Ketua Kelas', 'Sekretaris', 'Wakil Sekretaris', 'Bendahara', 'Wakil Bendahara', 'Kebersihan', 'Wakil Kebersihan', 'Keamanan', 'Developer'];
+    var pengurus = students.filter(function(s){ return s.jabatan !== 'Siswa'; });
+    pengurus.sort(function(a, b){
+      var ia = urutan.indexOf(a.jabatan);
+      var ib = urutan.indexOf(b.jabatan);
+      if(ia !== ib) return (ia === -1 ? 99 : ia) - (ib === -1 ? 99 : ib);
+      return a.no - b.no;
+    });
+
+    var body = document.getElementById('pengurusBody');
+    body.innerHTML = pengurus.map(function(s){
+      var fallback = initials(s.name);
+      return '' +
+        '<div class="pengurus-card" data-nisn="' + s.nisn + '" style="animation-delay:' + Math.min(pengurus.indexOf(s) * 0.04, 0.5) + 's">' +
+          '<div class="pengurus-photo" data-fallback="' + fallback + '">' +
+            '<img src="foto/fotosiswa' + s.no + '.jpg" alt="Foto ' + s.name + '" onerror="this.parentElement.textContent=this.parentElement.dataset.fallback;">' +
+          '</div>' +
+          '<div class="pengurus-name">' + s.name + '</div>' +
+          '<div class="pengurus-role">' + s.jabatan + '</div>' +
+        '</div>';
+    }).join('');
+  }
+
+  document.getElementById('pengurusBody').addEventListener('click', function(e){
+    var card = e.target.closest('.pengurus-card');
+    if(card) openDetail(card.getAttribute('data-nisn'));
+  });
+
   // ---------- Foto bersama (slideshow geser, smooth) ----------
   var groupPhotos = ['foto/kelasbersama1.jpg', 'foto/kelasbersama2.jpg', 'foto/kelasbersama3.jpg', 'foto/kelasbersama4.jpg'];
   var groupPhotoIndex = 0;
@@ -187,6 +238,102 @@
 
   setInterval(rotateGroupPhoto, 5000);
 
+  var galeriLabels = groupPhotos.map(function(src, i){
+    return 'Foto bersama X TJKT 2 · ' + (i + 1);
+  });
+  var lightboxIndex = 0;
+
+  function renderGaleri(){
+    document.getElementById('galeriBody').innerHTML = groupPhotos.map(function(src, i){
+      return '' +
+        '<button class="galeri-item" type="button" data-index="' + i + '" aria-label="Buka ' + galeriLabels[i] + '">' +
+          '<img src="' + src + '" alt="' + galeriLabels[i] + '" loading="lazy" onerror="this.style.visibility=\'hidden\'">' +
+          '<span>' + galeriLabels[i] + '</span>' +
+        '</button>';
+    }).join('');
+  }
+
+  function showLightboxPhoto(i){
+    lightboxIndex = (i + groupPhotos.length) % groupPhotos.length;
+    document.getElementById('lightboxImg').src = groupPhotos[lightboxIndex];
+    document.getElementById('lightboxImg').alt = galeriLabels[lightboxIndex];
+    document.getElementById('lightboxCaption').textContent = galeriLabels[lightboxIndex];
+    document.getElementById('lightboxCount').textContent = (lightboxIndex + 1) + ' / ' + groupPhotos.length;
+  }
+
+  function openLightbox(i){
+    showLightboxPhoto(i);
+    document.getElementById('lightbox').classList.add('show');
+    document.body.classList.add('locked');
+  }
+
+  function closeLightbox(){
+    document.getElementById('lightbox').classList.remove('show');
+    document.body.classList.remove('locked');
+  }
+
+  function prevPhoto(){ showLightboxPhoto(lightboxIndex - 1); }
+  function nextPhoto(){ showLightboxPhoto(lightboxIndex + 1); }
+
+  document.getElementById('galeriBody').addEventListener('click', function(e){
+    var item = e.target.closest('.galeri-item');
+    if(item) openLightbox(Number(item.getAttribute('data-index')));
+  });
+
+  document.getElementById('lightbox').addEventListener('click', function(e){
+    if(e.target.id === 'lightbox') closeLightbox();
+  });
+
+  document.addEventListener('keydown', function(e){
+    var lb = document.getElementById('lightbox');
+    if(!lb.classList.contains('show')) return;
+    if(e.key === 'Escape') closeLightbox();
+    else if(e.key === 'ArrowLeft') prevPhoto();
+    else if(e.key === 'ArrowRight') nextPhoto();
+  });
+
+  document.getElementById('downloadCsv').addEventListener('click', function(){
+    var rows = [['No', 'NISN', 'Nama', 'Jenis Kelamin', 'Jabatan']].concat(students.map(function(s){
+      return [s.no, s.nisn, s.name, s.gender === 'L' ? 'Laki-laki' : 'Perempuan', s.jabatan];
+    }));
+    var csv = '\uFEFF' + rows.map(function(row){
+      return row.map(function(cell){ return '"' + String(cell).replace(/"/g, '""') + '"'; }).join(',');
+    }).join('\r\n');
+    var url = URL.createObjectURL(new Blob([csv], {type: 'text/csv;charset=utf-8;'}));
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'daftar-siswa-x-tjkt-2.csv';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+  });
+
+  var backToTop = document.getElementById('backToTop');
+  window.addEventListener('scroll', function(){
+    backToTop.classList.toggle('show', window.scrollY > 600);
+  }, {passive: true});
+
+  var siteNav = document.querySelector('.site-nav');
+  var navLinks = siteNav.querySelectorAll('a');
+  var navIds = ['atas', 'pengurus', 'jadwal', 'siswa', 'galeri'];
+
+  function updateNav(){
+    siteNav.classList.toggle('scrolled', window.scrollY > 10);
+    var batas = siteNav.offsetHeight + 24;
+    var aktif = 'atas';
+    navIds.forEach(function(id){
+      var el = document.getElementById(id);
+      if(el && el.getBoundingClientRect().top <= batas) aktif = id;
+    });
+    navLinks.forEach(function(link){
+      link.classList.toggle('active', link.getAttribute('href') === '#' + aktif);
+    });
+  }
+
+  window.addEventListener('scroll', updateNav, {passive: true});
+  window.addEventListener('resize', updateNav);
+
   // ---------- Controls ----------
   document.getElementById('searchBox').addEventListener('input', function(e){
     searchTerm = e.target.value;
@@ -204,3 +351,7 @@
 
   updateStats();
   render();
+  renderJadwal();
+  renderPengurus();
+  renderGaleri();
+  updateNav();

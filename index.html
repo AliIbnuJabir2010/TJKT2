@@ -31,7 +31,7 @@
   </div>
 </div>
 
-<header>
+<header id="atas">
   <div class="brand">X TJKT 2
     <small>Teknik Jaringan Komputer dan Telekomunikasi · Semester Ganjil 2026/2027</small>
   </div>
@@ -39,6 +39,14 @@
     Wali Kelas<br><strong>Suci Fatmawati, S.Pd</strong>
   </div>
 </header>
+
+<nav class="site-nav">
+  <a href="#atas" class="active">Beranda</a>
+  <a href="#pengurus">Pengurus</a>
+  <a href="#jadwal">Jadwal</a>
+  <a href="#siswa">Siswa</a>
+  <a href="#galeri">Galeri</a>
+</nav>
 
 <div class="group-photo">
   <div class="group-photo-frame" id="groupPhotoFrame">
@@ -75,7 +83,23 @@
   <div class="stat"><div class="n">1</div><div class="l">Rombongan belajar</div></div>
 </div>
 
-<div class="roster-head">
+<section class="section" id="jadwal">
+  <div class="section-head">
+    <h2>Jadwal pelajaran</h2>
+    <p>Jadwal pelajaran X TJKT 2 · Semester Ganjil 2026/2027.</p>
+  </div>
+  <div class="jadwal-grid" id="jadwalBody"></div>
+</section>
+
+<section class="section" id="pengurus">
+  <div class="section-head">
+    <h2>Pengurus kelas</h2>
+    <p>Siswa yang memegang jabatan di X TJKT 2. Klik kartu untuk melihat profil.</p>
+  </div>
+  <div class="pengurus-grid" id="pengurusBody"></div>
+</section>
+
+<div class="roster-head" id="siswa">
   <h1>Daftar siswa</h1>
   <div class="controls">
     <input class="search" id="searchBox" type="text" placeholder="Cari nama atau NISN...">
@@ -84,12 +108,31 @@
       <button class="filter-tab" data-gender="L">Laki-laki</button>
       <button class="filter-tab" data-gender="P">Perempuan</button>
     </div>
+    <button class="csv-btn" id="downloadCsv" type="button">Unduh daftar siswa (.csv)</button>
   </div>
 </div>
 
 <div class="roster">
   <div class="roster-grid" id="rosterBody"></div>
 </div>
+
+<section class="section" id="galeri">
+  <div class="section-head">
+    <h2>Galeri kelas</h2>
+    <p>Klik foto untuk melihat ukuran penuh. Gunakan tombol panah untuk berpindah.</p>
+  </div>
+  <div class="galeri-grid" id="galeriBody"></div>
+</section>
+
+<div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Galeri foto kelas">
+  <button class="lb-close" type="button" onclick="closeLightbox()" aria-label="Tutup galeri">×</button>
+  <button class="lb-nav lb-prev" type="button" onclick="prevPhoto()" aria-label="Foto sebelumnya">‹</button>
+  <img class="lb-img" id="lightboxImg" src="" alt="">
+  <button class="lb-nav lb-next" type="button" onclick="nextPhoto()" aria-label="Foto berikutnya">›</button>
+  <div class="lb-caption"><span id="lightboxCaption"></span><span id="lightboxCount"></span></div>
+</div>
+
+<button class="back-to-top" id="backToTop" type="button" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="Kembali ke atas">↑</button>
 
 <footer>
   Haloo Selamat datang <code>Di Web X TJKT 2, </code> Enjoyy yaa 
